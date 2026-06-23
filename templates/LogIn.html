@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Log In</title>
+    </head>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input {
+            height: 10vh;
+            width: 30vw;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+            outline: none;
+        }
+
+        input:focus {
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="submit"]:active {
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        input[type="submit"]:active {
+            color: #666;
+        }
+
+        input[type="text"]:active,
+        input[type="password"]:active {
+            color: #666;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus,
+        input[type="password.length"]:focus {
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: lightgreen;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        hr {
+            width: 100%;
+            border: none;
+            border-top: 1px solid #ccc;
+            margin-bottom: 5vh;
+        }
+        #flip {
+            padding: 10px;
+            border: none;
+            border-radius: 50px;
+            background-color: lightgreen;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 10%;
+            width: 100%;
+        }
+    </style>
+    <body>
+        <div id="container">
+            <h1>Log In</h1>
+            <button id="flip" onclick="flip()">Flip</button>
+        </div>
+        <hr />
+        <form action="/login" method="POST">
+            <label for="username">username:</label>
+            <input type="text" id="username" name="username" /><br /><br />
+            <label for="password">password:</label>
+            <input type="password" id="password" name="password" /><br /><br />
+            <input type="submit" value="Submit" id="submit" />
+        </form>
+        <script>
+            let flipped = false;
+            function flip() {
+                flipped = !flipped;
+                const form = document.getElementsByTagName("form")[0];
+                if (!flipped) {
+                    document.getElementsByTagName("h1")[0].innerHTML = "Log In";
+                    form.action = "/login";
+                } else {
+                    document.getElementsByTagName("h1")[0].innerHTML =
+                        "Sign Up";
+                    form.action = "/signup";
+                }
+            }
+            document
+                .getElementsByTagName("form")[0]
+                .addEventListener("submit", function (event) {
+                    const username = document.getElementById("username").value;
+                    const password = document.getElementById("password").value;
+                    if (!flipped) {
+                        if (username.length === 0 || password.length === 0) {
+                            alert("Please enter a username and password");
+                            event.preventDefault();
+                        } else if (
+                            username.length < 8 ||
+                            username.length > 16
+                        ) {
+                            alert(
+                                "username must be between 8 and 16 characters",
+                            );
+                            event.preventDefault();
+                        } else if (
+                            password.length < 8 ||
+                            password.length > 16
+                        ) {
+                            alert(
+                                "password must be between 8 and 16 characters",
+                            );
+                            event.preventDefault();
+                        } else {
+                            alert("Logging in...");
+                        }
+                    } else {
+                        if (username.length === 0 || password.length === 0) {
+                            alert("Please enter a username and password");
+                            event.preventDefault();
+                        } else if (
+                            username.length < 8 ||
+                            username.length > 16
+                        ) {
+                            alert(
+                                "username must be between 8 and 16 characters",
+                            );
+                            event.preventDefault();
+                        } else if (
+                            password.length < 8 ||
+                            password.length > 16
+                        ) {
+                            alert(
+                                "password must be between 8 and 16 characters",
+                            );
+                            event.preventDefault();
+                        } else {
+                            alert("Signing up...");
+                        }
+                    }
+                });
+        </script>
+    </body>
+</html>
