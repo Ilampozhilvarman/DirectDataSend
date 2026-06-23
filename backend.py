@@ -38,8 +38,13 @@ def saved_contact(owner_id: str, username_id: str):
         "owner_id": owner_id,
         "username_id": username_id,
     }
-    response = supabase.table("saved_contacts").insert(data).execute()
+    response = supabase.table("contacts").insert(data).execute()
     return response
+
+
+def get_contacts(user_id: str):
+    response = supabase.table("contacts").select("*").eq("owner_id", user_id).execute()
+    return response.data if response.data else []
 
 
 def block(message: str, data, sender_id, sent_to_id):
@@ -74,7 +79,7 @@ def login():
     )
     if not user.data:
         return redirect(url_for("index"))
-    session["username"] = username
+    session["user_id"] = get_user_id(username)
     return redirect(url_for("home"))
 
 
@@ -85,13 +90,16 @@ def signup():
     if not username or not password:
         return redirect(url_for("index"))
     response = create_user(username, password)
-    session["username"] = username
+    session["user_id"] = get_user_id(username)
     return redirect(url_for("home"))
 
 
 @app.route("/home", methods=["GET", "POST"])
 def home():
-    return render_template("home.html")
+    if "username" not in session:
+        return redirect(url_for("index"))
+    session["contacts"] = get_contacts(session["user_id"])
+    return render_template("home.html", contacts=session["contacts"])
 
 
 if __name__ == "__main__":

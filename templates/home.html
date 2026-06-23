@@ -5,10 +5,38 @@
     </head>
     <style>
         .contact {
-            background-color: #f2f2f2;
+            background-color: gray;
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        @property --angle {
+            syntax: "<deg>";
+            initial-value: 0deg;
+            inherits: false;
+        }
+        @keyframes fadeIn {
+            to {
+                --angle: 360deg;
+            }
+        }
+        .contact::after {
+            content: "";
+            inset: -10px;
+            position: absolute;
+            background-image: conic-gradient(
+                from var(--angle),
+                red,
+                orange,
+                yellow,
+                green,
+                blue,
+                indigo,
+                violet
+            );
+            border-radius: 15px;
+            animation: fadeIn 5s linear infinite;
         }
         button {
             background-color: #4caf50;
@@ -20,15 +48,25 @@
         }
         body {
             display: grid;
-            place-items: center;
-            height: 100vh;
-            grid-template-rows: auto 1fr auto;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: black;
         }
     </style>
     <body>
         <div class="contact">
             <h2>Create a new contact</h2>
         </div>
+        {% for contact in contacts %}
+        <div class="contact">
+            <h2>{{ contact.name }}</h2>
+            <button>Send</button>
+            <button>View</button>
+        </div>
+        {% endfor %}
     </body>
 </html>
