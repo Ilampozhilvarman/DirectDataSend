@@ -11,7 +11,7 @@ SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 SECRET_KEY = os.getenv("SECRET_KEY")
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-app.secret_key = SECRET_KEY
+app.secret_key = SECRET_KEY or "super-secret-chicago-key-12345"
 
 
 def create_user(username: str, password: str):
