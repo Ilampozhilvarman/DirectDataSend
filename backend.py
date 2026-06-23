@@ -89,7 +89,7 @@ def signup():
     password = request.form.get("password")
     if not username or not password:
         return redirect(url_for("index"))
-    response = create_user(username, password)
+    create_user(username, password)
     session["user_id"] = get_user_id(username)
     return redirect(url_for("home"))
 
