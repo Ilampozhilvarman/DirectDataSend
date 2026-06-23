@@ -3,7 +3,32 @@
     <head>
         <title>Home</title>
     </head>
+    <style>
+        .contact {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        body {
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: repeat(3, 1fr);
+        }
+    </style>
     <body>
-        <button>Send Data</button>
+        <div class="contact">
+            <h2>Create a new contact</h2>
+        </div>
     </body>
 </html>
